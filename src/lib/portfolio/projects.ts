@@ -41,7 +41,6 @@ export const PROJECTS: Project[] = [
       { label: "Frame", value: "C3×5  ·  L 1½ × 1½ × ¼" },
       { label: "Doors", value: "12 ga  ·  Saginaw  ·  Southco" },
       { label: "Cladding", value: "14 ga exterior  ·  11 ga back" },
-      { label: "Weld", value: "AWS D1.1" },
     ],
     envelope: "93-7/16 × 36 × 80-1/16 in",
     meshBin: "/models/50-brk-480.bin",
@@ -73,7 +72,7 @@ export const PROJECTS: Project[] = [
       client: "Undisclosed",
       date: "6 April 2026",
       summary:
-        "Single full follow-up lever. Steering assembly (316 SS linkage, 8384K55 shaft, high-temp handle, 304 SS rod and ball-nose plungers), housing in .375 alum top panel with laser-engraved scale, 1-7/8 alum sleeve and .125 alum stop plate, .125 alum base housing, 3/4 in stainless stop block, 32-pitch gearing and nylon friction washer. Envelope 5 × 5 in on the base. Rev A — 6/16/2026. 7-sheet fabrication package, STEP AP214.",
+        "A redesign of an existing lever assembly to meet a customer request for a smaller, more compact single-lever option.\n\nObjective. Deliver a more compact single-lever variant of an already-existing design, per customer request.\n\nDesign approach. Minimized part count in the assembly wherever possible, while keeping the gearing easily repairable/serviceable if damaged.\n\nRevisions. Updated drawings through client-required revisions, tracked and shown directly on the drawings.\n\nKey addition. Added a nylon thrust washer to the assembly to prevent drift under heavy vibration.",
     },
     specs: [
       { label: "Envelope", value: "5 × 5 in base" },
@@ -113,7 +112,7 @@ export const PROJECTS: Project[] = [
       client: "Undisclosed",
       date: "13 September 2026",
       summary:
-        "Aluminum camper topper in .125 sheet. Faceted top cap (Section A / Section B), tapered side walls, rear hatch with glass and LED marker, dual side hatch doors, and hatch-brace columns. Envelope ~101 × 66 × 31 in. As-built powder coat. STEP AP214 layout with shop photos of the finished shell.",
+        "Developed from a client's rough concept: a low-profile camper shell designed to quickly adjust to fit any truck make and model.\n\nObjective. Design a sheet metal kit that could be adjusted to fit different truck beds without requiring a designer to rework the model or drawing set for each new fit.\n\nParametric design. Built the kit around parametric tables, letting the end-user change dimensions directly rather than routing changes back through design.\n\nTop cap consistency. Held the top cap size constant so the client could use repeatable, off-the-shelf tent material across configurations.\n\nDesign evolution. Later revised the top cap to offer two length options and a variable bottom depth to accommodate different mattress sizes.\n\nFabrication constraint. Kept the top shell to as few parts as possible, since the client planned to weld and fabricate it in-house after prototype evaluation.",
     },
     specs: [
       { label: "Envelope", value: "101 × 66 × 31 in" },
@@ -127,7 +126,7 @@ export const PROJECTS: Project[] = [
     meshBin: "/models/camper-topper.bin",
     meshGz: "/models/camper-topper.bin.gz",
     meshVersion: "1",
-    poster: "/models/camper-topper-iso.jpg?v=1",
+    poster: "/models/camper-topper-iso.jpg?v=4",
     stepFile: "/models/camper-layout.step",
     artifactsLabel: "Photos",
     drawings: CAMPER_PHOTOS,
@@ -152,7 +151,7 @@ export const PROJECTS: Project[] = [
       client: "Undisclosed",
       date: "September 2024",
       summary:
-        "Round dining table with a sculpted VW-bus base, painted trumpet pedestal, and walnut top on a walnut ring. Envelope ~60 in diameter × 32 in high. Hardware in tee-nut inserts and hex-head screws. Delivered September 2024. STEP AP214 layout with shop and install photos of the finished piece.",
+        "Originated from a client's verbal description: a custom dining table built around a sculptural Volkswagen bus centerpiece, spanning multiple fabrication methods and materials.\n\nDesign process. Translated the client's description into a concept sketch, then a full model to work out design details and the character/proportions of the bus.\n\nBase. Built from solid maple and walnut.\n\nTabletop. Solid walnut.\n\nBus centerpiece. CNC-fabricated from HDU (high-density urethane) around a center wood frame, with detail elements and lenses 3D-printed in resin.\n\nFinishing. Client had a local artist hand-paint the bus to match the room's style and composition.",
     },
     specs: [
       { label: "Envelope", value: "Ø 60 × 32 in" },
@@ -166,7 +165,7 @@ export const PROJECTS: Project[] = [
     meshBin: "/models/vw-dining-table.bin",
     meshGz: "/models/vw-dining-table.bin.gz",
     meshVersion: "2",
-    poster: "/models/vw-dining-table-iso.jpg?v=2",
+    poster: "/models/vw-dining-table-iso.jpg?v=6",
     stepFile: "/models/vw-dining-table.step",
     artifactsLabel: "Photos",
     drawings: TABLE_PHOTOS,
@@ -191,7 +190,7 @@ export const PROJECTS: Project[] = [
       client: "Undisclosed",
       date: "7 August 2026",
       summary:
-        "Stainless duct package for ice-maker intake: Duct Unit1, Duct Unit2-A, Duct Unit2-B, and inlet adapter in 14 ga / 11 ga AISI 304 with aligning weld nuts. Continuous watertight welds per AWS D1.1. Roof steel and ice makers shown for layout. 13-sheet fabrication set, STEP AP214.",
+        "A fast-turnaround solution for stainless steel duct transitions, needed after ice machines were installed in different orientations than originally planned relative to an existing roof penetration.\n\nObjective. Get the plant back up and running as quickly as possible, with getting at least one section operational as the top priority.\n\nSite verification. Field-verified existing steel framing locations and routing options before finalizing the transition design, since equipment placement had shifted from the original plan.\n\nDesign response. Engineered stainless duct transitions to reconcile the mismatch between the roof penetration and the machines' new orientation.\n\nConstraint. Fast turnaround was the driving factor throughout, prioritizing a workable, quickly fabricable solution over an optimized long-term one.",
     },
     specs: [
       { label: "Envelope", value: "21 × 20 × 9 ft layout" },
@@ -231,7 +230,7 @@ export const PROJECTS: Project[] = [
       client: "Undisclosed",
       date: "20 April 2026",
       summary:
-        "Benchtop propeller test fixture: 0.25 in aluminum base, 0.125 in formed guard and perforated wrap, Oriental Motor 5IK90 with 7 in mixer propeller on a ½ in shaft. Flexible coupling, extra-clearance bearings, acrylic cover. 5-sheet fabrication set, STEP AP214.",
+        "Designed for a client to showcase their vibration machine-monitoring software on a portable, tradeshow-ready countertop model.\n\nObjective. Build a compact demo prop that lets the client demonstrate their monitoring software live, in a traveling/tabletop format.\n\nGuard design. Designed guards to be easily removed during demos, exposing the mechanism for hands-on demonstration.\n\nSimulation capability. Built the assembly to accept counterweights on the prop, allowing the client to simulate misalignment conditions on demand for the software to detect and display.",
     },
     specs: [
       { label: "Envelope", value: "22.9 × 9.2 × 10.3 in" },
@@ -245,7 +244,7 @@ export const PROJECTS: Project[] = [
     meshBin: "/models/prop-simulator.bin",
     meshGz: "/models/prop-simulator.bin.gz",
     meshVersion: "5",
-    poster: "/models/prop-simulator-iso.jpg?v=5",
+    poster: "/models/prop-simulator-iso.jpg?v=6",
     stepFile: "/models/prop-simulator.step",
     pdfFile: "/drawings/prop-simulator/drawing-set.pdf",
     artifactsLabel: "Drawings",

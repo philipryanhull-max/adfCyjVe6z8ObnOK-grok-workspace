@@ -10,7 +10,6 @@ export const SPEC_STRIP = [
   { label: "Frame", value: "C3×5  ·  L 1½ × 1½ × ¼" },
   { label: "Doors", value: "12 ga  ·  Saginaw  ·  Southco" },
   { label: "Cladding", value: "14 ga exterior  ·  11 ga back" },
-  { label: "Weld", value: "AWS D1.1" },
 ] as const;
 
 export const KEY_DIMS = [

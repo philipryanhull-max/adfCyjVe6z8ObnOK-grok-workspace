@@ -2,9 +2,10 @@ import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Edges, OrbitControls } from "@react-three/drei";
 import {
-  ACESFilmicToneMapping,
   BufferAttribute,
   BufferGeometry,
+  Color,
+  NoToneMapping,
   SRGBColorSpace,
   type Group,
 } from "three";
@@ -18,6 +19,7 @@ import { cn } from "@/lib/utils";
 type View = "iso" | "front" | "left" | "top";
 
 const PAPER = "#ffffff";
+const PAPER_COLOR = new Color(PAPER);
 
 function cameraFor(view: View, half: [number, number, number]): [number, number, number] {
   const r = Math.max(half[0], half[1], half[2]);
@@ -59,6 +61,36 @@ function shade(color: [number, number, number]) {
   };
 }
 
+function shadeProp(color: [number, number, number]) {
+  const luma = color[0] * 0.2126 + color[1] * 0.7152 + color[2] * 0.0722;
+  if (luma < 0.1) {
+    return {
+      color: [0.07, 0.07, 0.07] as [number, number, number],
+      specular: "#d0d0d0",
+      shininess: 90,
+    };
+  }
+  return {
+    color: [
+      Math.min(1, color[0] * 1.22),
+      Math.min(1, color[1] * 1.22),
+      Math.min(1, color[2] * 1.22),
+    ] as [number, number, number],
+    specular: "#ffffff",
+    shininess: luma > 0.4 ? 110 : 78,
+  };
+}
+
+const BREAKER_GRAY: [number, number, number] = [0.58, 0.60, 0.59];
+
+function shadeSteel(_color: [number, number, number]) {
+  return {
+    color: BREAKER_GRAY,
+    specular: "#f2f2f2",
+    shininess: 48,
+  };
+}
+
 function chunkGeometry(chunk: MeshChunk): BufferGeometry {
   const g = new BufferGeometry();
   g.setAttribute("position", new BufferAttribute(chunk.positions, 3, true));
@@ -74,6 +106,8 @@ function StepMeshes({
   view,
   blockOf,
   on,
+  highlight,
+  steelPaint,
 }: {
   chunks: MeshChunk[];
   half: [number, number, number];
@@ -81,6 +115,8 @@ function StepMeshes({
   view: View;
   blockOf: string[];
   on: Record<string, boolean>;
+  highlight: boolean;
+  steelPaint: boolean;
 }) {
   const ref = useRef<Group>(null);
   const geos = useMemo(() => chunks.map(chunkGeometry), [chunks]);
@@ -105,13 +141,28 @@ function StepMeshes({
     <group ref={ref} scale={half}>
       {chunks.map((c, i) => (
         <mesh key={i} geometry={geos[i]} visible={on[blockOf[i]] !== false}>
-          <meshStandardMaterial
-            {...shade(c.color)}
-            polygonOffset
-            polygonOffsetFactor={1}
-            polygonOffsetUnits={1}
-          />
-          {c.indices.length <= 12000 ? <Edges threshold={28} color="#2a2c2e" /> : null}
+          {highlight ? (
+            <meshPhongMaterial
+              {...(steelPaint ? shadeSteel(c.color) : shadeProp(c.color))}
+              polygonOffset
+              polygonOffsetFactor={1}
+              polygonOffsetUnits={1}
+            />
+          ) : (
+            <meshStandardMaterial
+              {...shade(c.color)}
+              envMapIntensity={0}
+              polygonOffset
+              polygonOffsetFactor={1}
+              polygonOffsetUnits={1}
+            />
+          )}
+          {highlight || c.indices.length <= 28000 ? (
+            <Edges
+              threshold={highlight && c.indices.length > 16000 ? 36 : 18}
+              color="#0d0d0e"
+            />
+          ) : null}
         </mesh>
       ))}
     </group>
@@ -163,36 +214,43 @@ export function StepViewer({ project }: { project: Project }) {
   const radius = mesh?.radius ?? 1;
   const half = mesh?.half ?? ([1, 1, 1] as [number, number, number]);
   const cam = cameraFor(view, half);
+  const highlight =
+    project.slug === "prop-simulator" ||
+    project.slug === "vw-dining-table" ||
+    project.slug === "camper-topper";
+  const steelPaint = project.slug === "vw-dining-table" || project.slug === "camper-topper";
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden" style={{ background: PAPER }}>
       <img src={project.poster} alt={project.copy.projectName} className="model-print" />
       <div className="model-live">
-        <div className="relative min-h-0 flex-1">
+        <div className="relative min-h-0 flex-1" style={{ background: PAPER }}>
           {mesh ? (
             <Canvas
               className="!absolute inset-0 h-full w-full"
-              dpr={[1, 1.25]}
+              dpr={[1, 2]}
               camera={{ position: cam, fov: 30, near: Math.max(0.05, radius / 80), far: Math.max(4000, radius * 20) }}
               resize={{ debounce: 0 }}
               gl={{
                 antialias: true,
                 alpha: false,
                 preserveDrawingBuffer: false,
-                toneMapping: ACESFilmicToneMapping,
-                toneMappingExposure: 1.08,
+                toneMapping: NoToneMapping,
                 outputColorSpace: SRGBColorSpace,
                 powerPreference: "high-performance",
                 failIfMajorPerformanceCaveat: false,
               }}
-              onCreated={({ gl }) => {
-                gl.setClearColor(PAPER, 1);
+              onCreated={({ gl, scene }) => {
+                gl.setClearColor(PAPER_COLOR, 1);
+                scene.background = PAPER_COLOR;
+                scene.environment = null;
                 setDrawn(true);
               }}
             >
               <Suspense fallback={null}>
-                <ambientLight intensity={0.72} color="#ffffff" />
-                <hemisphereLight args={["#ffffff", "#d0d0d0", 0.55]} />
+                <color attach="background" args={[PAPER]} />
+                <ambientLight intensity={0.78} color="#ffffff" />
+                <hemisphereLight args={["#ffffff", "#ececec", 0.5]} />
                 <directionalLight
                   position={[radius * 0.85, radius * 1.6, radius * 1.25]}
                   intensity={1.15}
@@ -201,13 +259,20 @@ export function StepViewer({ project }: { project: Project }) {
                 <directionalLight
                   position={[-radius * 1.2, radius * 0.7, radius * 0.35]}
                   intensity={0.38}
-                  color="#e8e8e8"
+                  color="#ffffff"
                 />
                 <directionalLight
                   position={[radius * 0.1, radius * 0.45, -radius * 1.4]}
                   intensity={0.28}
-                  color="#f0f0f0"
+                  color="#ffffff"
                 />
+                {highlight ? (
+                  <directionalLight
+                    position={[radius * 1.15, radius * 1.85, radius * 0.55]}
+                    intensity={2.05}
+                    color="#ffffff"
+                  />
+                ) : null}
                 <StepMeshes
                   chunks={mesh.chunks}
                   half={mesh.half}
@@ -215,6 +280,8 @@ export function StepViewer({ project }: { project: Project }) {
                   view={view}
                   blockOf={blockOf}
                   on={on}
+                  highlight={highlight}
+                  steelPaint={steelPaint}
                 />
                 <OrbitControls
                   makeDefault

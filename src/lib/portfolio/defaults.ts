@@ -15,12 +15,12 @@ export const DEFAULT_COPY: PortfolioCopy = {
   designerTitle: "Mechanical Designer",
   designerEmail: "hello@example.com",
   firmName: "HJM Machine",
-  projectName: "50-Position 480V Breaker Enclosure",
+  projectName: "Custom Switchgear Enclosure",
   projectCode: "50 BRK 480",
   client: "Undisclosed",
   date: "16 July 2026",
   summary:
-    "50-position 480 VAC industrial breaker enclosure. Steel framing in C3×5 and 1½ × 1½ × ¼ angle, custom T-bar door stiles, 12 ga hinged breaker doors, 14 ga cladding, 11 ga interior back, and interior distribution racks on low-profile strut. Envelope 93-7/16 × 36 × 80-1/16 in. AWS D1.1. Delivered as a fully constrained STEP AP214 assembly with a 13-sheet fabrication package.",
+    "Representative of a recurring but never-repeating design challenge: custom electrical switchgear enclosures built around an engineer’s breaker and low-voltage panel layout.\n\nCollaboration. Worked in calibration with the electrical engineer, designing the structural framing and sheet metal cladding for each unit around their breaker and panel layout.\n\nFrame. Steel angle (1-1/2\" × 1/4\") and C3 × 5 channel, joined with a custom-fabricated 1/4\" T-slot system.\n\nCladding. 14-gauge steel skins; 12-gauge steel doors and breaker panels.\n\nConstraints. Every enclosure serves a distinct use case, so no two designs are alike — weight and space limits drive most decisions, requiring constant tradeoffs between structural rigidity, material gauge, and footprint.\n\nDelivery. Produced at volume with fast turnaround, requiring efficient design decisions and close coordination with electrical engineering to keep projects moving.",
 };
 
 export const COPY_FIELDS: {

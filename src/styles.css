@@ -363,17 +363,18 @@
   }
   .notes-copy {
     flex: 1;
-    font-size: 0.7rem;
-    line-height: 1.45;
+    font-size: 0.66rem;
+    line-height: 1.42;
     color: var(--color-ink-muted);
     text-wrap: pretty;
-    overflow: hidden;
+    white-space: pre-line;
+    overflow: auto;
     background-image: repeating-linear-gradient(
       to bottom,
       transparent 0,
-      transparent calc(1.45em - 1px),
-      color-mix(in oklab, var(--color-rule) 85%, var(--color-ink) 15%) calc(1.45em - 1px),
-      color-mix(in oklab, var(--color-rule) 85%, var(--color-ink) 15%) 1.45em
+      transparent calc(1.42em - 1px),
+      color-mix(in oklab, var(--color-rule) 85%, var(--color-ink) 15%) calc(1.42em - 1px),
+      color-mix(in oklab, var(--color-rule) 85%, var(--color-ink) 15%) 1.42em
     );
     padding: 0 0.1rem 0.2rem;
   }
@@ -496,6 +497,7 @@
     max-height: none;
     aspect-ratio: auto;
     height: auto;
+    overflow: visible;
   }
   .sheet-head {
     grid-template-columns: 1fr;
@@ -510,21 +512,34 @@
     font-size: 1.2rem;
   }
   .sheet-body {
-    grid-template-columns: 1fr;
-  }
-  .model-pane {
-    height: 58vw;
-    min-height: 240px;
-    max-height: 380px;
-    border-right: 0;
-    border-bottom: 1px solid var(--color-rule);
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    min-height: 0;
   }
   .sheet-rail {
+    order: 1;
     overflow: visible;
+    min-height: auto;
     background: none;
+    padding: 0.7rem 0.75rem 0.85rem;
+  }
+  .notes-block {
+    flex: none;
+    min-height: auto;
   }
   .notes-copy {
     overflow: visible;
+    flex: none;
+  }
+  .model-pane {
+    order: 2;
+    height: 62vw;
+    min-height: 240px;
+    max-height: 380px;
+    border-right: 0;
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 0;
   }
   .sheet-foot {
     grid-template-columns: 1fr 1fr;

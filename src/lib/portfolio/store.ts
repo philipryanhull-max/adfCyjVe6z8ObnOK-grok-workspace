@@ -53,7 +53,7 @@ export const usePortfolio = create<PortfolioState>()(
         })),
     }),
     {
-      name: "hull-portfolio-v2",
+      name: "hull-portfolio-v8",
       partialize: (s) => ({ copies: s.copies }),
     },
   ),
